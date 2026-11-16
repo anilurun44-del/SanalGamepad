@@ -9,18 +9,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: JDK 17 Kur
+      - name: Kodlari Indir
+        uses: actions/checkout@v4
+
+      - name: Java 17 Kur
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
           distribution: 'temurin'
-      - name: Gradle Kur
+          java-version: '17'
+
+      - name: Gradle Onbellek Devre Disi Birak
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: '8.4'
+          cache-read-only: true
+
+      - name: Gradle Calistirma Izni Ver
+        run: chmod +x gradlew || true
+
       - name: APK Derle
         run: gradle assembleDebug
+
       - name: APK Yukle
         uses: actions/upload-artifact@v4
         with:
