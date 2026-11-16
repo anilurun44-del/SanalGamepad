@@ -18,16 +18,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Gradle Onbellek Devre Disi Birak
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          cache-read-only: true
-
-      - name: Gradle Calistirma Izni Ver
-        run: chmod +x gradlew || true
+      - name: Gradle Wrapper Olustur
+        run: |
+          gradle wrapper --gradle-version 8.5
+          chmod +x gradlew
 
       - name: APK Derle
-        run: gradle assembleDebug
+        run: ./gradlew assembleDebug
 
       - name: APK Yukle
         uses: actions/upload-artifact@v4
