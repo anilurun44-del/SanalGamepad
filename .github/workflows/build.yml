@@ -12,21 +12,16 @@ jobs:
       - name: Kodlari Indir
         uses: actions/checkout@v4
 
-      - name: Java 17 Kur
-        uses: actions/setup-java@v4
+      - name: Java Kurulumu
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Gradle Wrapper Olustur
-        run: |
-          gradle wrapper --gradle-version 8.5
-          chmod +x gradlew
+      - name: APK Olustur
+        run: ./gradlew assembleDebug --no-daemon
 
-      - name: APK Derle
-        run: ./gradlew assembleDebug
-
-      - name: APK Yukle
+      - name: APK Dosyasini Yukle
         uses: actions/upload-artifact@v4
         with:
           name: SanalGamepad-APK
